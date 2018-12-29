@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Remove default black color from text */
+  color: #2b2b2b;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.container {
+  /* border: 2px solid tomato; */
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  /* border: 2px solid cyan; */
+  flex-basis: 50%;
+  /* Some padding between flex items */
+  padding: 10px;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.subTitle {
+  margin-bottom: 20px;
+}
+
+.button-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.form-Button {
+  background-color: #13dda7;
+  border: none;
+  color: white;
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-cancel-Button {
+  background-color: white;
+  color: #13dda7;
+  flex-shrink: 3;
+}
+
+form {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+label {
+  font-weight: 500;
+}
+
+input {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: none;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+}
+
+tr {
+  margin-bottom: 10px;
+}
+
+th, td {
+  min-width: 100px;
+}
+
+.remove-book-button{
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #dd132b;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.remove-book-button:hover{
+  background-color: #dd132b;
+  color: white;
+}
+
+.edit-book-button{
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid #13dda7;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-right: 5px;
+}
+
+.edit-book-button:hover{
+  background-color: #13dda7;
+  color: white;
+}
+
+.tableNumber {
+  text-align: right;
+  padding-right: 15px;
+}
+
+.tableAuthor {
+  text-align:center;
+}
