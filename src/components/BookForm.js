@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 
 const EditBooksForm = (props) => {
-  const { editMode, setEditMode, currentBook, updateBookOnClick } = props
+  const { setEditMode, currentBook, updateBookOnClick } = props
 
   // Editing fields of current book
   const [book, setBook] = useState(currentBook)
@@ -51,7 +51,6 @@ const AddBooksForm = (props) => {
   // Create initial state for form (+reset)
   // Id gets attached to new book from parent container
   const initialFormState = {
-    id: null,
     title: '',
     author: '',
     published: ''

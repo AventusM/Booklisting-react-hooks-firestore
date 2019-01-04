@@ -2,16 +2,15 @@ import React from 'react'
 
 const BookList = (props) => {
   const { books, removeBook, editBook } = props
-
+  // console.log('books', books)
   if (books.length === 0) {
     return (
       <React.Fragment>
         No books listed!
-      </React.Fragment>
+        </React.Fragment>
     )
   }
 
-  // console.log(books)
   return (
     <table>
       <thead>

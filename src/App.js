@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookList from './components/BookList'
 import { AddBooksForm, EditBooksForm } from './components/BookForm'
 
+import { getAll, addNew, deleteItem } from './firebase/functions'
+
 const App = () => {
+
   // Listing initial data
-  // Using dummy api
-  const initialBooksData = [
-    { id: 1, title: 'Tuntematon Kimi Räikkönen', author: 'Kari Hotakainen', published: 2018 },
-    { id: 2, title: 'Pojat', author: 'Paavo Rintala', published: 1958 }
-  ]
+  // Now using firebase w/ effects
+  const initialBooksData = []
+
+  const fetchData = async () => {
+    const firebaseBooks = await getAll
+    setBooks(firebaseBooks)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   // Duplicate (BookForm.js already has this, consider importing)
   const initialEditFormState = {
@@ -18,17 +27,16 @@ const App = () => {
     published: ''
   }
 
-  // Adding a new book, placing it here due to booksList being here as well
   const addBook = (book) => {
-    book.id = initialBooksData.length + 1
-    // Update booksList
-    setBooks([...booksList, book])
+    // Add to firebase
+    addNew(book)
   }
 
   // Removing existing book by filtering out id
   const removeBook = (id) => {
     setEditMode(false) // Avoid situation when deleting a book being edited
-    setBooks(booksList.filter(book => book.id !== id))
+    // Perform delete on firebase 
+    deleteItem(id)
   }
 
   // Set fields to editMode selected book
@@ -56,7 +64,6 @@ const App = () => {
 
   const selectedBooksForm = editMode ?
     <EditBooksForm
-      editMode={editMode}
       setEditMode={setEditMode}
       currentBook={currentBook}
       updateBookOnClick={updateBookOnClick}
