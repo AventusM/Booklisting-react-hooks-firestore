@@ -40,8 +40,11 @@ const App = () => {
   // Set fields to editMode selected book
   const editSelectedBookFields = (book) => {
     setEditMode(true)
+    const bookData = book.data()
+    // console.log('id', book.id)
+    // console.log('data', bookData)
     setCurrentBook({
-      id: book.id, title: book.title, author: book.author, published: book.published
+      id: book.id, title: bookData.title, author: bookData.author, published: bookData.published
     })
   }
 

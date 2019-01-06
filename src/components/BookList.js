@@ -30,6 +30,7 @@ const BookList = (props) => {
       </thead>
       <tbody>
         {booksData.map(book => {
+          // console.log(book.data().id)
           // Pelkät () sulkeet -> ei tarvitse returnia erikseen -- ts. {} pois book => {...} --> book => ()
           return (
             <tr key={book.id}>
@@ -38,7 +39,7 @@ const BookList = (props) => {
               <td className="tableNumber">{book.data().published}</td>
               <td>
                 <div className="button-container">
-                  <button className="edit-book-button" onClick={() => editBook(book.data())}>Edit</button>
+                  <button className="edit-book-button" onClick={() => editBook(book)}>Edit</button>
                   <button className="remove-book-button" onClick={() => removeBook(book.id)}>Delete</button>
                 </div>
               </td>
