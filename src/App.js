@@ -2,26 +2,23 @@ import React, { useState, useEffect } from 'react';
 import BookList from './components/BookList'
 import { AddBooksForm, EditBooksForm } from './components/BookForm'
 
-import { getAll, addNew, deleteItem } from './firebase/functions'
+import { addNew, deleteItem, updateItem } from './firebase/functions'
+import db from './firebase/config'
 
 const App = () => {
 
   // Listing initial data
   // Now using firebase w/ effects
-  const initialBooksData = []
-
-  const fetchData = async () => {
-    const firebaseBooks = await getAll
-    setBooks(firebaseBooks)
-  }
-
   useEffect(() => {
-    fetchData()
+    setLoadingState(true)
+    return db.collection('books').onSnapshot(snapshot => {
+      setBooks(snapshot.docs)
+      setLoadingState(false)
+    })
   }, [])
 
   // Duplicate (BookForm.js already has this, consider importing)
   const initialEditFormState = {
-    id: null,
     title: '',
     author: '',
     published: ''
@@ -35,6 +32,7 @@ const App = () => {
   // Removing existing book by filtering out id
   const removeBook = (id) => {
     setEditMode(false) // Avoid situation when deleting a book being edited
+
     // Perform delete on firebase 
     deleteItem(id)
   }
@@ -50,14 +48,14 @@ const App = () => {
   // Confirm update, called when user submits updated form
   const updateBookOnClick = (updatedBook) => {
     setEditMode(false)
+    const id = updatedBook.id
 
-    // Change booksList so on matching book id it updates that single book
-    // This option doesnt mess with ordering
-    // Alternatively this could be done with filter + order by id
-    setBooks(booksList.map(book => book.id === updatedBook.id ? updatedBook : book))
+    // Updating now in firebase
+    updateItem(id, updatedBook)
   }
 
-  const [booksList, setBooks] = useState(initialBooksData)
+  const [loading, setLoadingState] = useState(true)
+  const [booksList, setBooks] = useState([])
   const [editMode, setEditMode] = useState(false)
   const [currentBook, setCurrentBook] = useState(initialEditFormState)
 
@@ -84,7 +82,8 @@ const App = () => {
         <div className="flex-column">
           <h3 className="subTitle">Listed books</h3>
           <BookList
-            books={booksList}
+            loading={loading}
+            booksData={booksList}
             removeBook={removeBook}
             editBook={editSelectedBookFields}
           />
